@@ -19,7 +19,7 @@ oled = adafruit_ssd1306.SSD1306_I2C(WIDTH, HEIGHT, i2c, addr=0x3C, reset=oled_re
 
 oled.fill(0)
 oled.show()
-image = Image.open('Mladshi_128x64.ppm').convert('1')
+image = Image.open('imageLibrary/Mladshi_128x64.ppm').convert('1')
 # Display image
 oled.image(image)
 oled.show()
