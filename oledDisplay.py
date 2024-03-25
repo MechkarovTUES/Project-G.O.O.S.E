@@ -4,6 +4,8 @@ from PIL import Image, ImageDraw, ImageFont
 import adafruit_ssd1306
 
 # Define the Reset Pin
+
+#test git configuration comment
 oled_reset = digitalio.DigitalInOut(board.D4)
 
 # Change these
