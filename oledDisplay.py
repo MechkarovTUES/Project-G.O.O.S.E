@@ -34,34 +34,45 @@ class Menu:
         self.image = Image.new('1', (oled.width, oled.height))
         self.draw = ImageDraw.Draw(self.image)
         self.font = ImageFont.load_default()  # List to hold menu options
+        self.index = 0  # Current index of the displayed options
 
     def add_option(self, option):
         self.options.append(option)
-        print(self.options)
-    
+
     def clear(self):
         self.image = Image.new('1', (oled.width, oled.height))
         self.draw = ImageDraw.Draw(self.image)
         self.oled.fill(0)
 
-    def display_menu(self, index):
+    def display_menu(self):
         self.clear()
-        self.draw.rectangle((0, index*20, self.oled.width - 1, index*20 + 20), outline=10, fill=0)
-        for i in range(len(self.options)):
-            print(self.options[i])
-            self.draw.text((5, i * 20 + 5), self.options[i], font=self.font, fill=255)
         
+        start_index = self.index
+        end_index = min(start_index + 3, len(self.options))
+        selected_option_y = (self.index - start_index) * 20
+        print(selected_option_y, start_index, end_index, self.index)
+        self.draw.rectangle((0, selected_option_y, self.oled.width - 1, selected_option_y + 20), outline=255, fill=0)
+        
+        for i in range(start_index, end_index):
+            y = (i - start_index) * 20 + 5
+            self.draw.text((5, y), self.options[i], font=self.font, fill=255)
+        
+        # Draw rectangle around selected option
+        
+
         self.oled.image(self.image)
         self.oled.show()
 
+    # def scroll_down(self):
+    #     if self.index < len(self.options) - 1:
+    #         self.index += 1
+    #         self.display_menu()
 
+    # def scroll_up(self):
+    #     if self.index > 0:
+    #         self.index -= 1
+    #         self.display_menu()
 
-oled_reset = digitalio.DigitalInOut(board.D4)
-WIDTH = 128
-HEIGHT = 64
-BORDER = 5
-i2c = board.I2C()
-oled = adafruit_ssd1306.SSD1306_I2C(WIDTH, HEIGHT, i2c, addr=0x3C, reset=oled_reset)
 
 # Create a Menu object
 menu = Menu(oled)
@@ -70,7 +81,15 @@ menu = Menu(oled)
 menu.add_option("Config")
 menu.add_option("NFC Module")
 menu.add_option("Bluetooth")
+menu.add_option("Option 4")
+menu.add_option("Option 5")
+
 # Display the menu
-for index in range(3):
-    menu.display_menu(index)
+menu.display_menu()
+
+# Test scrolling
+time.sleep(1)
+for index in range(4):
+    menu.index += 1
+    menu.display_menu()
     time.sleep(1)
