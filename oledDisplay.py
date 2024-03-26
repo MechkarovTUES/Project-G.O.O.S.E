@@ -83,13 +83,16 @@ menu.add_option("NFC Module")
 menu.add_option("Bluetooth")
 menu.add_option("Option 4")
 menu.add_option("Option 5")
+menu.add_option("Option 6")
+menu.add_option("Option 7")
+menu.add_option("Option 8")
 
 # Display the menu
 menu.display_menu()
 
 # Test scrolling
 time.sleep(1)
-for index in range(4):
+for index in range(len(menu.options)-1):
     menu.index += 1
     menu.display_menu()
     time.sleep(1)
