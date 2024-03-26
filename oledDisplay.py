@@ -2,7 +2,7 @@ import board
 import digitalio
 from PIL import Image, ImageDraw, ImageFont
 import adafruit_ssd1306
-
+import time
 # Define the Reset Pin
 
 #test git configuration comment
@@ -39,12 +39,18 @@ class Menu:
         self.options.append(option)
         print(self.options)
     
-    def display_menu(self):
+    def clear(self):
+        self.image = Image.new('1', (oled.width, oled.height))
+        self.draw = ImageDraw.Draw(self.image)
         self.oled.fill(0)
+
+    def display_menu(self, index):
+        self.clear()
+        self.draw.rectangle((0, index*20, self.oled.width - 1, index*20 + 20), outline=10, fill=0)
         for i in range(len(self.options)):
             print(self.options[i])
-            #self.draw.rectangle((0, i*20, self.oled.width - 1, 20), outline=1, fill=0)
-            self.draw.text((0, i * 20), self.options[i], font=self.font, fill=255)
+            self.draw.text((5, i * 20 + 5), self.options[i], font=self.font, fill=255)
+        
         self.oled.image(self.image)
         self.oled.show()
 
@@ -64,6 +70,7 @@ menu = Menu(oled)
 menu.add_option("Config")
 menu.add_option("NFC Module")
 menu.add_option("Bluetooth")
-
 # Display the menu
-menu.display_menu()
+for index in range(3):
+    menu.display_menu(index)
+    time.sleep(1)
