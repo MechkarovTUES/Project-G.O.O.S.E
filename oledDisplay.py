@@ -38,10 +38,9 @@ class Menu:
         
         start_index = self.index
         end_index = min(start_index + 3, len(self.options))
-        selected_option_y = (self.index - start_index) * 20
-        print(selected_option_y, start_index, end_index, self.index) #check the index status
+        print(start_index, end_index, self.index) #check the index status
 
-        self.draw.rectangle((0, selected_option_y, self.oled.width - 1, selected_option_y + 20), outline=255, fill=0) # draw rectangle around selected option
+        self.draw.rectangle((0, 0, self.oled.width - 1, 20), outline=255, fill=0) # draw rectangle around selected option
         
         for i in range(start_index, end_index):
             y = (i - start_index) * 20 + 5
