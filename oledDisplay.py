@@ -80,15 +80,15 @@ menu.display_menu()
 
 # test scrolling
 time.sleep(1)
-# for i in range(2):
-#     menu.scroll_down()
-#     menu.display_menu()
-#     time.sleep(1)
+for i in range(3):
+    menu.scroll_down()
+    menu.display_menu()
+    time.sleep(1)
 
-menu.calcSize()
+# menu.calcSize()
 
-# time.sleep(1)
-# for i in range(5):
-#     menu.scroll_up()
-#     menu.display_menu()
-#     time.sleep(1)
+time.sleep(1)
+for i in range(5):
+    menu.scroll_up()
+    menu.display_menu()
+    time.sleep(1)
