@@ -7,7 +7,7 @@ import time
 #test git configuration comment
 
 WIDTH = 128
-HEIGHT = 64 
+HEIGHT = 64
 
 #i2c configuration
 i2c = board.I2C() 
@@ -40,10 +40,10 @@ class Menu:
         end_index = min(self.start_index + visible_count, len(self.options))
 
         for i in range(self.start_index, end_index):
-            y = (i - self.start_index) * 20 + 5
+            y = (i - self.start_index) * (self.oled.height / int(((self.oled.height/32)+1))) + 5
             if i == self.index:
-                self.draw.rectangle((0, y - 5, self.oled.width - 1, y + 15), outline=255, fill=0)  # Highlight selected option
-            self.draw.text((5, y), self.options[i], font=self.font, fill=255)
+                self.draw.rectangle((0, y - 5, self.oled.width - 1, y + 10), outline=255, fill=0)  # Highlight selected option
+            self.draw.text((5, y - int(((self.oled.height/32)+ 1))), self.options[i], font=self.font, fill=255)
 
         self.oled.image(self.image)
         self.oled.show()
@@ -51,7 +51,7 @@ class Menu:
     def scroll_down(self):
         if self.index < len(self.options) - 1:
             self.index += 1
-            if self.index >= self.start_index + 3:  # If the selection moves beyond the visible options
+            if self.index >= self.start_index + int(((self.oled.height/32)+1)):  # If the selection moves beyond the visible options
                 self.start_index += 1  # Scroll options down
 
     def scroll_up(self):
